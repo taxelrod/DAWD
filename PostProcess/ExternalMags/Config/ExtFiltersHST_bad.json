@@ -1,0 +1,34 @@
+{
+    "filterList": {
+	"F275W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/HST_WFC3_UVIS2.F275W.dat",
+	    "zpABflux": "1.48998e-8",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=HST/WFC3_UVIS2.F275W&&mode=browse&gname=HST&gname2=WFC3_UVIS2#filter"
+	},
+	"F336W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/HST_WFC3_UVIS2.F336W.dat",
+	    "zpABflux": "9.6731e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=HST/WFC3_UVIS2.F336W&&mode=browse&gname=HST&gname2=WFC3_UVIS2#filter"
+	},
+	"F475W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/HST_WFC3_UVIS2.F475W.dat",
+	    "zpABflux": "4.77986e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=HST/WFC3_UVIS2.F475W&&mode=browse&gname=HST&gname2=WFC3_UVIS2#filter"
+	},
+	"F625W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/HST_WFC3_UVIS2.F625W.dat",
+	    "zpABflux": "2.79386e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=HST/WFC3_UVIS2.F625W&&mode=browse&gname=HST&gname2=WFC3_UVIS2#filter"
+	},
+	"F775W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/HST_WFC3_UVIS2.F775W.dat",
+	    "zpABflux": "1.86087e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=HST/WFC3_UVIS2.F775W&&mode=browse&gname=HST&gname2=WFC3_UVIS2#filter"
+        },
+	"F160W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/HST_WFC3_IR.F160W.dat",
+	    "zpABflux": "4.60766e-10",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=HST/WFC3_IR.F160W&&mode=browse&gname=HST&gname2=WFC3_IR#filter"
+	}
+    }
+}

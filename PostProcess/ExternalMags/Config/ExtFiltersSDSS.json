@@ -1,0 +1,29 @@
+{
+    "filterList": {
+	"SDSS.u": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/SDSS/SLOAN_SDSS.u.dat",
+	    "zpABflux": "8.60588e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.u&&mode=browse&gname=SLOAN&gname2=SDSS#filter"
+	},
+	"SDSS.g": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/SDSS/SLOAN_SDSS.g.dat",
+	    "zpABflux": "4.92255e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.g&&mode=browse&gname=SLOAN&gname2=SDSS#filter"
+	},
+	"SDSS.r": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/SDSS/SLOAN_SDSS.r.dat",
+	    "zpABflux": "2.85425e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.g&&mode=browse&gname=SLOAN&gname2=SDSS#filter"
+	},
+	"SDSS.i": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/SDSS/SLOAN_SDSS.i.dat",
+	    "zpABflux": "1.94038e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.g&&mode=browse&gname=SLOAN&gname2=SDSS#filter"
+	},
+	"SDSS.z": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/SDSS/SLOAN_SDSS.z.dat",
+	    "zpABflux": "1.35994e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.g&&mode=browse&gname=SLOAN&gname2=SDSS#filter"
+	}
+    }
+}

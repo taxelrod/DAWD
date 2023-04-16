@@ -1,0 +1,20 @@
+{
+    "filterList": {
+	"GaiaG": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/GAIA/GAIA_GAIA3.G.dat",
+	    "zpABflux": "2.81581e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=GAIA/GAIA3.G&&mode=browse&gname=GAIA&gname2=GAIA3#filter"
+	},
+	"GaiaRp": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/GAIA/GAIA_GAIA3.Grp.dat",
+	    "zpABflux": "1.80349e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=GAIA/GAIA3.Grp&&mode=browse&gname=GAIA&gname2=GAIA3#filter"
+	},
+	"GaiaBp": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/GAIA/GAIA_GAIA3.Gbp.dat",
+	    "zpABflux": "4.16921e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=GAIA/GAIA3.Gbp&&mode=browse&gname=GAIA&gname2=GAIA3#filter"
+	}
+
+    }
+}

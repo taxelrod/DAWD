@@ -1,0 +1,34 @@
+{
+    "filterList": {
+	"DECAM.u": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/DECAM/CTIO_DECam.u.dat",
+	    "zpABflux": "7.48186e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=CTIO/DECam.u&&mode=browse&gname=CTIO&gname2=DECam#filter"
+	},
+	"DECAM.g": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/DECAM/CTIO_DECam.g.dat",
+	    "zpABflux": "4.70792e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=CTIO/DECam.g&&mode=browse&gname=CTIO&gname2=DECam#filter"
+	},
+	"DECAM.r": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/DECAM/CTIO_DECam.r.dat",
+	    "zpABflux": "2.64299e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=CTIO/DECam.r&&mode=browse&gname=CTIO&gname2=DECam#filter"
+	},
+	"DECAM.i": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/DECAM/CTIO_DECam.i.dat",
+	    "zpABflux": "1.78253e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=CTIO/DECam.i&&mode=browse&gname=CTIO&gname2=DECam#filter"
+	},
+	"DECAM.z": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/DECAM/CTIO_DECam.z.dat",
+	    "zpABflux": "1.29484e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=CTIO/DECam.z&&mode=browse&gname=CTIO&gname2=DECam#filter"
+	},
+	"DECAM.Y": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/DECAM/CTIO_DECam.Y.dat",
+	    "zpABflux": "1.11152e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=CTIO/DECam.Y&&mode=browse&gname=CTIO&gname2=DECam#filter"
+	}
+    }
+}

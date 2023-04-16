@@ -1,0 +1,22 @@
+{
+    "filterList": {
+	"F275W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/bp275W.dat"
+	},
+	"F336W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/bp336W.dat"
+	},
+	"F475W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/bp475W.dat"
+	},
+	"F625W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/bp625W.dat"
+	},
+	"F775W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/bp775W.dat"
+        },
+	"F160W": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/HST/bp160W.dat"
+	}
+    }
+}

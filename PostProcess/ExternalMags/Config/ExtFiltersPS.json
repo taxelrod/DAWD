@@ -1,0 +1,24 @@
+{
+    "filterList": {
+	"PS1.g": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/PAN-STARRS/PAN-STARRS_PS1.g.dat",
+	    "zpABflux": "4.70324e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=PAN-STARRS/PS1.g&&mode=browse&gname=PAN-STARRS&gname2=PS1#filter"
+	},
+	"PS1.r": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/PAN-STARRS/PAN-STARRS_PS1.r.dat",
+	    "zpABflux": "2.8721e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=PAN-STARRS/PS1.r&&mode=browse&gname=PAN-STARRS&gname2=PS1#filter"
+	},
+	"PS1.i": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/PAN-STARRS/PAN-STARRS_PS1.i.dat",
+	    "zpABflux": "1.9333e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=PAN-STARRS/PS1.i&&mode=browse&gname=PAN-STARRS&gname2=PS1#filter"
+	},
+	"PS1.z": {
+	    "filterFile": "C:/Users/TandR/Dropbox/WD/PyWD/WDmodel/ExtFilters/PAN-STARRS/PAN-STARRS_PS1.z.dat",
+	    "zpABflux": "1.44861e-9",
+	    "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=PAN-STARRS/PS1.z&&mode=browse&gname=PAN-STARRS&gname2=PS1#filter"
+	}
+    }
+}
