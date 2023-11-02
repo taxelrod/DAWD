@@ -338,11 +338,22 @@ def doMCMC(objCollection):
     except KeyError:
         thin = 1
 
-    outFileName = objCollection.paramDict['output_file']
+    try:
+        dumpInterval = objCollection.paramDict['dumpInterval']
+    except KeyError:
+        dumpInterval = 1000000
+
+    outFileNameRoot = objCollection.paramDict['output_file']
     summaryFileName = objCollection.paramDict['summary_file']
-    outf = h5py.File(outFileName, 'w')
+
+# Dump objCollection to pickle file for later use in analysis
 
     pickleFileName = objCollection.paramDict['pickle_file']
+
+    fpkl = open(pickleFileName, 'wb')
+    pickle.dump(objCollection, fpkl)
+    fpkl.close()
+
     
     # initialize chains
 
@@ -377,40 +388,39 @@ def doMCMC(objCollection):
     message = "\nMAP Parameters after Burn-in"
     print(message)
     print(theta)
-    outputResult(objCollection, theta, None, None)
+    outputResult(objCollection, theta, None)
 
-    # set up output for chains
-
-    chain = outf.create_group("chain")
-
-
-    # set walkers to start production at final burnin state
+       # set walkers to start production at final burnin state
     pos = result.coords
     
-    # write to disk before we start
-    outf.flush()
-
     # since we're going to save the chain in HDF5, we don't need to save it in memory elsewhere
     # funny stuff to maintain backward compatibility with emcee2.x
     
     # production sample
 
-    result = sampler.run_mcmc(pos, nprod, progress=True, store=True, skip_initial_state_check=True)
-    samples        = sampler.get_chain(flat=True, thin=thin)
-    samples_lnprob = sampler.get_log_prob(flat=True, thin=thin)
-    blobs = sampler.get_blobs(flat=True, thin=thin)
+    nSteps = 0
 
-    print('debug:',samples.shape, blobs.shape)
-                
-    
-    print('production finished')
-    
-    dset_chain  = chain.create_dataset("position", data=samples)
-    dset_lnprob = chain.create_dataset("lnprob", data=samples_lnprob)
-    dset_blob = chain.create_dataset("magerr", data=blobs)
+    while nSteps < nProd:
+        nNext = min(dumpInterval, nProd - nsteps)
+        result = sampler.run_mcmc(pos, nNext, progress=True, store=True, skip_initial_state_check=True)
 
-    outf.flush()
-    outf.close()
+        samples        = sampler.get_chain(flat=True, thin=thin)
+        samples_lnprob = sampler.get_log_prob(flat=True, thin=thin)
+        blobs = sampler.get_blobs(flat=True, thin=thin)
+
+        outFileNameNow = outfileNameRoot + '_' + str(nsteps) + '.hdf5'
+        outf = h5py.File(outFileNameNow, 'w')
+        chain = outf.create_group("chain")
+        dset_chain  = chain.create_dataset("position", data=samples)
+        dset_lnprob = chain.create_dataset("lnprob", data=samples_lnprob)
+        dset_blob = chain.create_dataset("magerr", data=blobs)
+
+        outf.flush()
+        outf.close()
+
+        nSteps += nNext
+        pos = result.coords
+
 
     # find the MAP position after the production run
 
@@ -425,11 +435,11 @@ def doMCMC(objCollection):
     message = "\nMAP Parameters after Production"
     print(message)
     print(theta)
-    outputResult(objCollection, theta, summaryFileName, pickleFileName)
+    outputResult(objCollection, theta, summaryFileName)
 
     return
    
-def outputResult(objCollection, theta=None, outFileName=None, pickleFileName=None):
+def outputResult(objCollection, theta=None, outFileName=None):
 
     if theta is not None:
         lnPost = objCollection(theta)
@@ -456,11 +466,6 @@ def outputResult(objCollection, theta=None, outFileName=None, pickleFileName=Non
 
     if outFileName is not None:
         f.close()
-
-    if pickleFileName is not None:
-        fpkl = open(pickleFileName, 'wb')
-        pickle.dump(objCollection, fpkl)
-        fpkl.close()
 
 
 def dumpSed(objectName, paramFileName, sedFileName, teff, logg, Av, DM):
