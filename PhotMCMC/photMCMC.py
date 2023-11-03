@@ -309,8 +309,8 @@ def setupPhotEnv(pbPath):
     
     if pbPath is None:
 #        pbPath = '/home/tsa/Dropbox/WD/PyWD/WDmodel/WDdata/photometry/synphot/'
-#        pbPath = '/home/tim/WDmodel/WDdata/photometry/synphot/'
-        pbPath = 'C:\\Users\\TandR\\Dropbox\\WD\\PyWD\\WDmodel\\WDdata\\photometry\\synphot'
+        pbPath = '/home/tim/WDmodel/WDdata/photometry/synphot/'
+#        pbPath = 'C:\\Users\\TandR\\Dropbox\\WD\\PyWD\\WDmodel\\WDdata\\photometry\\synphot'
 
     os.environ['PYSYN_CDBS'] = pbPath
 
@@ -332,6 +332,7 @@ def doMCMC(objCollection):
     nprod = objCollection.paramDict['nprod']
     nbands = objCollection.nBands
     nobj = objCollection.nObj
+    nparam = objCollection.nParams
 
     try:
         thin = objCollection.paramDict['thin']
@@ -342,6 +343,11 @@ def doMCMC(objCollection):
         dumpInterval = objCollection.paramDict['dumpInterval']
     except KeyError:
         dumpInterval = 1000000
+
+    try:
+        restartHDF5 = objCollection.paramDict['restartHDF5']
+    except KeyError:
+        restartHDF5 = None
 
     outFileNameRoot = objCollection.paramDict['output_file']
     summaryFileName = objCollection.paramDict['summary_file']
@@ -357,42 +363,48 @@ def doMCMC(objCollection):
     
     # initialize chains
 
-    objCollection.firstGuess()
-    pos = emcee.utils.sample_ball(objCollection.guess, objCollection.guess_sigma, size=nwalkers)
-    pos = enforceBounds(pos, objCollection.lowerBounds, objCollection.upperBounds) 
-    
-    # burnin
-    print('starting burnin, nParams=', objCollection.nParams, objCollection.guess.shape, objCollection.lowerBounds.shape, objCollection.upperBounds.shape, pos.shape)
-
     sampler = emcee.EnsembleSampler(nwalkers, objCollection.nParams, objCollection)  # note that objCollection() returns the posterior
-    result = sampler.run_mcmc(pos, nburnin, progress=True)
-    print('burnin finished')
 
-    # find the MAP position after the burnin
+    if restartHDF5 is None:
 
-    nparam = objCollection.nParams
-    samples        = sampler.get_chain(flat=True, thin=thin)
-    samples_lnprob = sampler.get_log_prob(flat=True, thin=thin)
-    lenBurnin = int(nburnin/thin)
-    print('DEBUG:sample shape= ', samples.shape, lenBurnin, thin)
-    map_samples        = samples.reshape(nwalkers, lenBurnin, nparam)
-    map_samples_lnprob = samples_lnprob.reshape(nwalkers, lenBurnin)
-    max_ind        = np.argmax(map_samples_lnprob)
-    max_ind        = np.unravel_index(max_ind, (nwalkers, lenBurnin))
-    max_ind        = tuple(max_ind)
-    theta        = map_samples[max_ind]
+        objCollection.firstGuess()
+        pos = emcee.utils.sample_ball(objCollection.guess, objCollection.guess_sigma, size=nwalkers)
+        pos = enforceBounds(pos, objCollection.lowerBounds, objCollection.upperBounds) 
 
-    # reset the sampler
-    sampler.reset()
+        # burnin
+        print('starting burnin, nParams=', objCollection.nParams, objCollection.guess.shape, objCollection.lowerBounds.shape, objCollection.upperBounds.shape, pos.shape)
 
-    message = "\nMAP Parameters after Burn-in"
-    print(message)
-    print(theta)
-    outputResult(objCollection, theta, None)
+        result = sampler.run_mcmc(pos, nburnin, progress=True, skip_initial_state_check=True)
+        print('burnin finished')
 
-       # set walkers to start production at final burnin state
-    pos = result.coords
-    
+        # find the MAP position after the burnin
+
+        samples        = sampler.get_chain(flat=True, thin=thin)
+        samples_lnprob = sampler.get_log_prob(flat=True, thin=thin)
+        lenBurnin = int(nburnin/thin)
+        print('DEBUG:sample shape= ', samples.shape, lenBurnin, thin)
+        map_samples        = samples.reshape(nwalkers, lenBurnin, nparam)
+        map_samples_lnprob = samples_lnprob.reshape(nwalkers, lenBurnin)
+        max_ind        = np.argmax(map_samples_lnprob)
+        max_ind        = np.unravel_index(max_ind, (nwalkers, lenBurnin))
+        max_ind        = tuple(max_ind)
+        theta        = map_samples[max_ind]
+
+        # reset the sampler
+        sampler.reset()
+
+        message = "\nMAP Parameters after Burn-in"
+        print(message)
+        print(theta)
+        outputResult(objCollection, theta, None)
+
+           # set walkers to start production at final burnin state
+        pos = result.coords
+
+    else:
+        # load the restart file and set pos from it
+        pos = loadRestartHDF5(restartHDF5)
+        
     # since we're going to save the chain in HDF5, we don't need to save it in memory elsewhere
     # funny stuff to maintain backward compatibility with emcee2.x
     
@@ -400,20 +412,21 @@ def doMCMC(objCollection):
 
     nSteps = 0
 
-    while nSteps < nProd:
-        nNext = min(dumpInterval, nProd - nsteps)
+    while nSteps < nprod:
+        nNext = min(dumpInterval, nprod - nSteps)
         result = sampler.run_mcmc(pos, nNext, progress=True, store=True, skip_initial_state_check=True)
 
         samples        = sampler.get_chain(flat=True, thin=thin)
         samples_lnprob = sampler.get_log_prob(flat=True, thin=thin)
         blobs = sampler.get_blobs(flat=True, thin=thin)
 
-        outFileNameNow = outfileNameRoot + '_' + str(nsteps) + '.hdf5'
+        outFileNameNow = outFileNameRoot + '_' + str(nSteps) + '.hdf5'
         outf = h5py.File(outFileNameNow, 'w')
         chain = outf.create_group("chain")
         dset_chain  = chain.create_dataset("position", data=samples)
         dset_lnprob = chain.create_dataset("lnprob", data=samples_lnprob)
         dset_blob = chain.create_dataset("magerr", data=blobs)
+        last_pos = chain.create_dataset("last_pos", data=result.coords)
 
         outf.flush()
         outf.close()
@@ -517,6 +530,17 @@ def postFromThetaFile(paramFileName, thetaFileName, outputFileName):
         print(objName, obj.teff, obj.logg, obj.Av, obj.optDM, file=fOut)
     
     fOut.close()
+
+def loadRestartHDF5(restartHDF5):
+
+    f=h5py.File(restartHDF5,'r')
+    runData = f['chain']
+    runPosition = runData['last_pos']
+    pos = runPosition[:,:]
+    f.close()
+    print('position', pos.shape)
+    return pos
+    
     
 def main(paramFileName, pbPath = None):
 
